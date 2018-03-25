@@ -1,0 +1,181 @@
+@import url("//fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:300,400,600,700,800");
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css");
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  font-size: 100%;
+  line-height: 1.45;
+  font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #dedede;
+}
+
+.main {
+  display: table;
+  height: 100%;
+  width: 100%;
+  background: #f05e70;
+}
+.main .main--top {
+  position: absolute;
+  top: 1.5rem;
+  display: inline-block;
+  width: 50%;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: .8rem;
+}
+.main .main--top.main--top--left {
+  left: .5rem;
+  text-align: left;
+}
+.main .main--top.main--top--right {
+  right: .5rem;
+  text-align: right;
+}
+.main .main--top .clock,
+.main .main--top .gps,
+.main .main--top .weather {
+  cursor: pointer;
+  display: inline-block;
+  padding: 0 1rem;
+}
+.main .main--top .clock:hover,
+.main .main--top .gps:hover,
+.main .main--top .weather:hover {
+  color: white;
+}
+.main .main--bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 1em 0 3em;
+  border-top: 1px solid #DDD;
+  font-size: 0.85rem;
+  text-align: center;
+  margin-left: 5em;
+  margin-right: 5em;
+  opacity: 0.5;
+
+}
+.main .main--bottom a {
+  color: inherit;
+  text-decoration: none;
+}
+.main .main--bottom a:hover {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    font-weight: bold;
+}
+.main .main--inner {
+  display: table-cell;
+  text-align: center;
+  padding-top: 7em;
+  color: white;
+  word-break: break-all;
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  margin: -20px 0 0 -20px;
+  opacity: 0;
+  -webkit-animation: pulsate 2s ease-out;
+          animation: pulsate 2s ease-out;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes pulsate {
+  0% {
+    -webkit-transform: scale(0.1);
+            transform: scale(0.1);
+    opacity: .8;
+  }
+  50% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(0.1);
+            transform: scale(0.1);
+    opacity: .8;
+  }
+}
+
+@keyframes pulsate {
+  0% {
+    -webkit-transform: scale(0.1);
+            transform: scale(0.1);
+    opacity: .8;
+  }
+  50% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(0.1);
+            transform: scale(0.1);
+    opacity: .8;
+  }
+}
+.input {
+    background: rgba(255, 255, 255, 0.34);
+  border: none;
+  border-radius: 3px;
+  padding: .5rem;
+  font-size: 1.8rem;
+  text-align: center;
+  width: 70%;
+}
+.input:hover, .input:active, .input:focus, .input:active:focus {
+  outline: none;
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+}
+
+p, .p {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+}
+
+h1, .h1 {
+    font-size: 1.8rem;
+    padding-left: 5em;
+    padding-right: 5em;
+    padding-bottom: 1.4em;
+}

@@ -1,0 +1,4 @@
+{ :init-fns [es-edu.app/init]
+  :compiler-options { :output-to "js/app.js" ;; this will be loaded by html
+                      :optimizations :whitespace
+                      :asset-path "js/app.out"}}

@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <!-- Headers -->
+  <head>
+    <meta charset="utf-8">
+    <title>ES-EDU</title>
+    <link href="styles.css" rel="stylesheet">
+  </head>
+  <body>
+    <main class="main">
+      
+      <div class="main--top main--top--left">
+        <div class="clock"><i class="fa fa-clock-o"></i></div>
+      </div><!--.main--top--left-->
+      <div class="main--top main--top--right">
+        <div class="gps"><i class="fa fa-globe"></i> Searching</div>
+        <div class="weather"></div>
+      </div><!--.main--top--right-->
+      
+      <div class="main--inner">
+        <!--<div class="loader"></div>-->
+        
+        <h1 id="question">Hola!</h1>
+
+        <form id="answer" onsubmit="return false">
+        <input type="text" id="text-field" class="input"/>
+        </form>
+      </div><!--.main--inner-->
+      
+      <div class="main--bottom">
+        <a href="http://github.com/xtbmaster">Arthur Aliiev</a>
+      </div><!--.main--bottom-->
+    </main><!--.main-->
+  </body>
+  <!-- File compiled from ClojureScript -->
+  <script src="js/app.js"></script>
+</html>
