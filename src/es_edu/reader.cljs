@@ -2,19 +2,29 @@
   (:require
     [clojure.spec.alpha :as spec]
     [testdouble.cljs.csv :as csv]
-    [es-edu.adaptor :include-macros true :refer [slurp]]))
+    [es-edu.macros :refer [slurp]]))
 
 
-(defn csv-data->maps [csv-data]
-  (map zipmap
-    (->> (first csv-data) ;; First row is the header
-      (map keyword) ;; Drop if you want string keys instead
-      repeat)
-    (rest csv-data)))
+(spec/def ::valid-string (spec/valid? #(keyword? (keyword (spec/conform string? %)) %)))
 
+(defn stringer
+  "Fixes 'broken' strings from .csv file"
+  [raw-string]
+  { :pre [(spec/valid? string? raw-string)]
+    :post [(spec/explain ::valid-string %)]}
+  (->
+    raw-string
+    (.split "\"")
+    (.join "")))
 
-(defn get-word []
-  (first (csv-data->maps (slurp "resources/def_spa.csv"))))
+(defn check []
+  (println (spec/valid? ::valid-string (stringer (first (first (csv/read-csv (slurp "resources/def_spa.csv"))))))))
+
+(defn csv->map []
+  (let [ vector (csv/read-csv (slurp "resources/def_spa.csv"))
+         ks (vec (map (comp keyword stringer) (first vector)))]
+    (for [input (rest vector)]
+      (zipmap ks input))))
 
 (spec/def ::Definition string?)
 (spec/def ::Expression string?)
@@ -33,5 +43,3 @@
   (let [expression :Expression]
     (get pair expression)))
 
-(get-defn (get-word))
-(get-expr (get-word))

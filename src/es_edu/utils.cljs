@@ -53,12 +53,12 @@
     (.getElementById js/document id)))
 
 
-;; (defn component-value
-;;   [component-id]
-;;   (->
-;;     js/document
-;;     (.getElementById component-id)
-;;     (.-value)))
+(defn component-value
+  [component-id]
+  (->
+    js/document
+    (.getElementById component-id)
+    (.-value)))
 
 (defn clj->json [ds]
   (.stringify js/JSON (clj->js ds)))

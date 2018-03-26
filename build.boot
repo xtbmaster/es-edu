@@ -16,8 +16,7 @@
                    [com.cemerick/piggieback "0.2.2" :scope "test"]
                    [weasel "0.7.0" :scope "test"]
                    [testdouble/clojurescript.csv "0.3.0"]
-                   [org.clojure/clojure "1.10.0-alpha4"]
-                   [cljs-node-io "0.5.0"]])
+                   [org.clojure/clojure "1.10.0-alpha4"]])
 
 
 (require

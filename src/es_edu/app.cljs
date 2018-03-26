@@ -3,11 +3,12 @@
     [es-edu.utils :as utils]
     [es-edu.weather :as weather]
     [es-edu.rules :as rules]
+    [es-edu.quiz :as quiz]
+    [es-edu.reader :as reader]
     [hiccups.runtime]
     [dommy.core :as dommy :refer-macros [sel sel1]]
     [cljs.core.async :refer [put! chan <! >! timeout close!]]
-    [beicon.core :as beicon]
-    [cljs-node-io.core :as io :refer [slurp spit]])
+    [beicon.core :as beicon])
   (:require-macros
     [cljs.core.async.macros :refer [go go-loop]]
     [hiccups.core :as hiccups :refer [html]]))
@@ -24,11 +25,11 @@
 (defn init []
   (utils/set-innerHTML
     dom-quesion
-    "HELLO")
-  (println (read-string (slurp "resources/def_spa.csv")))
+    (str (quiz/new-quiz)))
+  (println (reader/check))
 
   (dommy/listen!
     dom-answer
     :submit
-    #(.alert js/window (utils/by-id text-field-id))))
+    #(.alert js/window (utils/component-value text-field-id))))
 

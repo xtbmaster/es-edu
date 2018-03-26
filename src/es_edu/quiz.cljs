@@ -2,4 +2,5 @@
   (:require
     [es-edu.reader :as reader]))
 
-(defn new-quiz)
+(defn new-quiz []
+  (rand-int 30))
