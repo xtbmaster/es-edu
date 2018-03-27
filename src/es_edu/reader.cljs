@@ -1,34 +1,19 @@
 (ns es-edu.reader
   (:require
     [clojure.spec.alpha :as spec]
-    [testdouble.cljs.csv :as csv]
-    [es-edu.macros :refer [slurp]]))
+    [es-edu.macros :refer [slurp]]
+    [cljs.reader :as edn]))
+
+(enable-console-print!)
 
 
-(spec/def ::valid-string (spec/valid? #(keyword? (keyword (spec/conform string? %)) %)))
+(defonce qzs (edn/read-string (slurp "resources/sp-expr.edn")))
 
-(defn stringer
-  "Fixes 'broken' strings from .csv file"
-  [raw-string]
-  { :pre [(spec/valid? string? raw-string)]
-    :post [(spec/explain ::valid-string %)]}
-  (->
-    raw-string
-    (.split "\"")
-    (.join "")))
-
-(defn check []
-  (println (spec/valid? ::valid-string (stringer (first (first (csv/read-csv (slurp "resources/def_spa.csv"))))))))
-
-(defn csv->map []
-  (let [ vector (csv/read-csv (slurp "resources/def_spa.csv"))
-         ks (vec (map (comp keyword stringer) (first vector)))]
-    (for [input (rest vector)]
-      (zipmap ks input))))
 
 (spec/def ::Definition string?)
 (spec/def ::Expression string?)
 (spec/def :unq/pair (spec/keys :req-un [::Definition ::Expression]))
+
 
 (defn get-defn [pair]
   { :pre [(spec/valid? :unq/pair pair)]
@@ -42,4 +27,17 @@
     :post [(spec/valid? string? %)]}
   (let [expression :Expression]
     (get pair expression)))
+
+;; TODO use set!
+
+(defn random-element
+  "Gets a random elem from a COL. If passed to cols - will return a unique element."
+  ([col] (rand-nth col))
+  ([col-from col-to]
+    (loop [element (rand-nth col-from)]
+      (if (contains? col-to element)
+        (recur (rand-nth col-from))
+        (element)))))
+
+
 

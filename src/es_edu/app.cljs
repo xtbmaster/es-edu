@@ -16,20 +16,33 @@
 
 (enable-console-print!)
 
+;; TODO clara rule for automatic quiz upload
+
+(defonce *qzs (atom {}))
 
 (def dom-answer (sel1 :#answer))
-(def dom-quesion (sel1 :#question))
+(def dom-question (sel1 :#question))
 
 (def ^:const text-field-id "text-field")
+(def ^:const quiz-id "question")
+
+;; (defn buffered-quizes
+;;   "Downloads first bunch of quizes"
+;;   []
+;;   (swap! *qzs merge (reader/get-qz 10)))
 
 (defn init []
   (utils/set-innerHTML
-    dom-quesion
-    (str (quiz/new-quiz)))
-  (println (reader/check))
+    dom-question
+    "ho"
+    #_(quiz/new-quiz @quizes))
 
   (dommy/listen!
     dom-answer
     :submit
-    #(.alert js/window (utils/component-value text-field-id))))
-
+    "ho"
+    #_(let [ answer (utils/component-value text-field-id)]
+           question "hoe"
+         (println answer " !!!!!!!!!!!! " question)
+         (println (= (.toLowerCase answer) (.toLowerCase question)))
+         #(quiz/check-quiz question answer))))

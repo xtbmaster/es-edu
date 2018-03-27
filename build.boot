@@ -1,6 +1,6 @@
 (set-env!
   :source-paths #{"src" "html"}
-  :resource-paths #{"html" "build"}
+  :resource-paths #{"html"}
   :dependencies '[ [adzerk/boot-cljs "2.1.4" :scope "test"]
                    [adzerk/boot-reload "0.5.2" :scope "test"]
                    [adzerk/boot-cljs-repl "0.3.3" :scope "test"]
@@ -15,8 +15,9 @@
                    [com.cerner/clara-rules "0.17.0"]
                    [com.cemerick/piggieback "0.2.2" :scope "test"]
                    [weasel "0.7.0" :scope "test"]
-                   [testdouble/clojurescript.csv "0.3.0"]
-                   [org.clojure/clojure "1.10.0-alpha4"]])
+                   [org.clojure/clojure "1.10.0-alpha4"]
+                   [org.clojure/data.csv "0.1.4"]
+                   [org.clojure/tools.nrepl "0.2.12" :scope "test"]])
 
 
 (require
