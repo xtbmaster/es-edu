@@ -8,7 +8,8 @@
     [hiccups.runtime]
     [dommy.core :as dommy :refer-macros [sel sel1]]
     [cljs.core.async :refer [put! chan <! >! timeout close!]]
-    [beicon.core :as beicon])
+    [beicon.core :as beicon]
+    [clojure.set :as set])
   (:require-macros
     [cljs.core.async.macros :refer [go go-loop]]
     [hiccups.core :as hiccups :refer [html]]))
@@ -18,7 +19,7 @@
 
 ;; TODO clara rule for automatic quiz upload
 
-(defonce *qzs (atom {}))
+(defonce *qzs (atom #{}))
 
 (def dom-answer (sel1 :#answer))
 (def dom-question (sel1 :#question))
@@ -26,23 +27,19 @@
 (def ^:const text-field-id "text-field")
 (def ^:const quiz-id "question")
 
-;; (defn buffered-quizes
-;;   "Downloads first bunch of quizes"
-;;   []
-;;   (swap! *qzs merge (reader/get-qz 10)))
+(defn buffered-qzs
+  "Downloads first bunch of quizes"
+  []
+  (swap! *qzs set/union (reader/new-elements 10 reader/qzs *qzs)))
 
 (defn init []
   (utils/set-innerHTML
     dom-question
-    "ho"
-    #_(quiz/new-quiz @quizes))
+    "ho")
+  (println "check")
+  (println (buffered-qzs))
 
   (dommy/listen!
     dom-answer
     :submit
-    "ho"
-    #_(let [ answer (utils/component-value text-field-id)]
-           question "hoe"
-         (println answer " !!!!!!!!!!!! " question)
-         (println (= (.toLowerCase answer) (.toLowerCase question)))
-         #(quiz/check-quiz question answer))))
+    "ho"))
