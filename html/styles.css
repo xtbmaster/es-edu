@@ -150,7 +150,7 @@ body {
   }
 }
 .input {
-    background: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.34);
   border: none;
   border-radius: 3px;
   padding: .5rem;
@@ -186,9 +186,9 @@ h1, .h1 {
 }
 
 body.a {
-    background: #c6efbd ;
+    background: #5d9b5f;
 }
 
 body.b {
-    background: #ff8c8c; 
+    background: #db5c5c; 
 }
