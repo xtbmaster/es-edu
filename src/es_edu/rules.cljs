@@ -4,6 +4,20 @@
     [clara.rules :refer
       [defsession defrule defquery query insert! insert fire-rules]]))
 
+;; (defrule add-qz
+;;   "Adds new quizzes to a qz buffer if there are none exist (at the app first start)
+;;    or if a user has answered some question for 10 times, so it can add a new one.")
+
+
+
+
+
+
+
+
+
+
+
 (defrecord MilkTime [value])
 (defrecord FoxAngry [yesno])
 

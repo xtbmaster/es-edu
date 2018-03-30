@@ -23,14 +23,18 @@ body {
   padding: 0;
   width: 100%;
   height: 100%;
-  background: #dedede;
+
+    -ms-transition: background 0.8s ease 0s;
+    -moz-transition: background 0.8s ease 0s;
+    -webkit-transition: background 0.8s ease 0s;
+    transition: background 0.8s ease 0s;  
+
 }
 
 .main {
   display: table;
   height: 100%;
   width: 100%;
-  background: #f05e70;
 }
 .main .main--top {
   position: absolute;
@@ -179,4 +183,12 @@ h1, .h1 {
     padding-right: 5em;
     padding-bottom: 2.5em;
     padding-top: 2.5em;
+}
+
+body.a {
+    background: #c6efbd ;
+}
+
+body.b {
+    background: #ff8c8c; 
 }

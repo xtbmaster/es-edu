@@ -10,7 +10,6 @@
                    [org.clojure/core.async "0.4.474"]
                    [prismatic/dommy "1.1.0"]
                    [hiccups "0.3.0"]
-                   [cljs-ajax "0.7.3"]
                    [funcool/beicon "4.1.0"]
                    [com.cerner/clara-rules "0.17.0"]
                    [com.cemerick/piggieback "0.2.2" :scope "test"]

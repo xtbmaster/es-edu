@@ -2,17 +2,18 @@
   (:require
     [clojure.spec.alpha :as spec]
     [es-edu.macros :refer [slurp spit]]
-    [cljs.reader :as edn]))
+    [cljs.reader :as edn]
+    [clojure.set :as set]))
 
 (enable-console-print!)
 
 
-(defonce qzs (into #{} (edn/read-string (slurp "resources/sp-expr.edn"))))
+(defn upload-qzs []
+  (edn/read-string (slurp "resources/sp-expr.edn")))
 
 (spec/def ::Definition string?)
 (spec/def ::Expression string?)
 (spec/def :unq/pair (spec/keys :req-un [::Definition ::Expression]))
-
 
 
 (defn get-defn [pair]
@@ -32,16 +33,15 @@
 #_(defn save-data [file data]
     (spit file data))
 
-(defn random-element
-  "Gets a random elem from a COL-FROM. If passed two collections - will return a unique element,
-   that not exists in COL-TO"
-  ([col-from] (rand-nth col-from))
-  ([col-from col-to]
-    (loop [element (rand-nth col-from)]
-      (if (some #(= element %) col-to)
-        (recur (rand-nth col-from))
-        element))))
 
 
-(defn new-elements [n col-from col-to]
-  (concat col-to (take n (random-element col-from col-to))))
+(defn new-elements
+  "Gets N of COL-FROM elements which are not present in COL-TO, Or just N from COL-FROM."
+  ([n col-from] (vec (take n (repeatedly #(rand-nth (vec col-from))))))
+  ([n col-from col-to] (loop [ agg col-to
+                               amount-taken 0]
+                         (let [ unique (not-empty (vec (set/difference (set col-from) (set agg))))
+                                element (rand-nth unique)]
+                           (if (or (= amount-taken n) (nil? element))
+                             agg
+                             (recur (conj agg element) (inc amount-taken)))))))

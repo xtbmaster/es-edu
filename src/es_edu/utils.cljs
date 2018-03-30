@@ -64,3 +64,6 @@
 
 (defn clj->json [ds]
   (.stringify js/JSON (clj->js ds)))
+
+(defn change-back-color []
+  ())
