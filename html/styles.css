@@ -183,6 +183,8 @@ h1, .h1 {
     padding-right: 5em;
     padding-bottom: 2.5em;
     padding-top: 2.5em;
+    word-break: break-word;
+
 }
 
 body.a {

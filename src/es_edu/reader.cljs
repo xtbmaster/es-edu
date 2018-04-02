@@ -1,9 +1,10 @@
 (ns es-edu.reader
   (:require
     [clojure.spec.alpha :as spec]
-    [es-edu.macros :refer [slurp spit]]
+    [es-edu.macros :refer [slurp]]
     [cljs.reader :as edn]
-    [clojure.set :as set]))
+    [clojure.set :as set]
+    [clojure.string :as string]))
 
 (enable-console-print!)
 
@@ -17,22 +18,17 @@
 
 
 (defn get-defn [pair]
-  { :pre [(spec/valid? :unq/pair pair)]
-    :post [(spec/valid? string? %)]}
+   ;; { :pre [(spec/explain :unq/pair pair)]
+   ;;   :post [(spec/explain string? %)]}
   (let [definition :Definition]
     (get pair definition)))
 
 
 (defn get-expr [pair]
-  { :pre [(spec/valid? :unq/pair pair)]
-    :post [(spec/valid? string? %)]}
+  ;; { :pre [(spec/explain :unq/pair pair)]
+  ;;   :post [(spec/explain string? %)]}
   (let [expression :Expression]
     (get pair expression)))
-
-
-#_(defn save-data [file data]
-    (spit file data))
-
 
 
 (defn new-elements

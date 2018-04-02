@@ -4,6 +4,3 @@
 (defmacro slurp [file]
   (clojure.core/slurp file))
 
-(defmacro spit [file data]
-  (clojure.core/spit file data))
-

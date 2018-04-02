@@ -11,10 +11,14 @@
     [cljs.core.async.macros :refer [go go-loop]]
     [hiccups.core :as hiccups :refer [html]]))
 
+(def greeting "Hola! It's time to learn some Spanish words! Press Enter to start!")
+
 
 (enable-console-print!)
 
 ;; TODO clara rule for automatic quiz upload
+;; TODO clara rule for background change
+;; TODO scoring
 
 
 
@@ -24,16 +28,31 @@
 (def ^:const text-field-id "text-field")
 (def ^:const quiz-id "question")
 
-(defn init []
+(defn write-text [text]
   (utils/set-innerHTML
     (sel1 :#question)
-    "ho2")
+    text))
+  
+(defn answer! [users-answer original-answer]
+  (do
+    (quiz/check-quiz users-answer original-answer)
+    (write-text original-answer)
+    (println users-answer " " original-answer)))
+  
+(defn init []
+  (write-text greeting)
 
   (dommy/listen!
-    (let [ question (quiz/next-qz)]
       (sel1 :#answer)
-      :submit
-      (utils/set-innerHTML
-        (sel1 :#question))
-      #(println (quiz/next-qz)))))
+    :submit
+    #(let [ users-answer (utils/component-value text-field-id)
+            skip? (or
+                    (= (utils/component-value quiz-id) greeting)
+                    (empty? users-answer))]
+       (if skip?
+         (write-text (quiz/next-qz))
+         (let [ original-answer (reader/get-expr @quiz/*current-qz)]
+           (answer! users-answer original-answer))))))
+
+
 

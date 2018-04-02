@@ -1,0 +1,9 @@
+[{:quiz/expression { :db/cardinality :db.cardinality/one
+                     :db/valueType :db.type/string
+                     :db/doc "A word/expression."}
+  :quiz/definition { :db/cardinality :db.cardinality/many
+                     :db/valueType :db.type/string
+                     :db/doc "Definition of the word/expression."}
+   :quiz/score { :db/cardinality :db.cardinality/one
+                 :db/valueType :db.type/long
+                 :db/doc "Times user responded correctly on the question."}}]
