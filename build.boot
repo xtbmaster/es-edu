@@ -17,7 +17,7 @@
                    [org.clojure/clojure "1.10.0-alpha4"]
                    [org.clojure/data.csv "0.1.4"]
                    [org.clojure/tools.nrepl "0.2.12" :scope "test"]
-                   [datascript "0.16.4"]])
+                   [cljs-node-io "0.5.0"]])
 
 
 (require

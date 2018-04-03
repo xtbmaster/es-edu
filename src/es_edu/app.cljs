@@ -34,25 +34,28 @@
     text))
   
 (defn answer! [users-answer original-answer]
-  (do
-    (quiz/check-quiz users-answer original-answer)
-    (write-text original-answer)
-    (println users-answer " " original-answer)))
+  (let [correct? (quiz/check-quiz users-answer original-answer)]
+    (println users-answer " " original-answer)
+    correct?))
+    
   
 (defn init []
   (write-text greeting)
 
   (dommy/listen!
-      (sel1 :#answer)
+    (sel1 :#answer)
     :submit
     #(let [ users-answer (utils/component-value text-field-id)
             skip? (or
-                    (= (utils/component-value quiz-id) greeting)
+                    (= (utils/read-innerHTML dom-question) greeting)
                     (empty? users-answer))]
        (if skip?
          (write-text (quiz/next-qz))
-         (let [ original-answer (reader/get-expr @quiz/*current-qz)]
-           (answer! users-answer original-answer))))))
+         (let [ original-answer (reader/get-expr @quiz/*current-qz)
+                correct? (answer! users-answer original-answer)]
+           (if correct?
+             (write-text (quiz/next-qz))
+             (write-text original-answer)))))))
 
 
 

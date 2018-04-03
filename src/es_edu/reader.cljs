@@ -2,37 +2,57 @@
   (:require
     [clojure.spec.alpha :as spec]
     [es-edu.macros :refer [slurp]]
-    [cljs.reader :as edn]
+    [cljs.reader :as reader]
     [clojure.set :as set]
-    [clojure.string :as string]))
+    [clojure.string :as string]
+    [goog.net.cookies]
+    [es-edu.utils :as utils]))
 
 (enable-console-print!)
 
 
 (defn upload-qzs []
-  (edn/read-string (slurp "resources/sp-expr.edn")))
+  (reader/read-string (slurp "resources/sp-expr.edn")))
+
+(defn from-local-storage [name]
+  (reader/read-string (utils/get-item name)))
+
+(defn add-id
+  "Adds an int-based id representation to a quiz, to prevent string searching."
+  [qzs]
+  (let [ total (count qzs)
+         new-id (inc total)]
+    (assoc qzs :id new-id)))
+
+(defn increase-score [quiz]
+  (let [ old-score (get quiz :score)
+         new-score (inc old-score)]
+    (assoc quiz :score new-score)))
+  
 
 (spec/def ::Definition string?)
 (spec/def ::Expression string?)
 (spec/def :unq/pair (spec/keys :req-un [::Definition ::Expression]))
 
+(defn get-score [data]
+  (let [score :score]
+    (get data score)))
 
-(defn get-defn [pair]
-   ;; { :pre [(spec/explain :unq/pair pair)]
+  
+(defn get-defn [data]
+   ;; { :pre [(spec/explain :unq/data data)]
    ;;   :post [(spec/explain string? %)]}
-  (let [definition :Definition]
-    (get pair definition)))
+    (get data :Definition))
 
 
-(defn get-expr [pair]
-  ;; { :pre [(spec/explain :unq/pair pair)]
+(defn get-expr [data]
+  ;; { :pre [(spec/explain :unq/data data)]
   ;;   :post [(spec/explain string? %)]}
-  (let [expression :Expression]
-    (get pair expression)))
+    (get data :Expression))
 
 
 (defn new-elements
-  "Gets N of COL-FROM elements which are not present in COL-TO, Or just N from COL-FROM."
+  "Gets `n` elements of `col-from` which are not present in `col-to`, Or just `n` elements from `col-from`."
   ([n col-from] (vec (take n (repeatedly #(rand-nth (vec col-from))))))
   ([n col-from col-to] (loop [ agg col-to
                                amount-taken 0]
