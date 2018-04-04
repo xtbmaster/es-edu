@@ -1,8 +1,6 @@
 (ns es-edu.utils
   (:require
-    [dommy.core :as dommy])
-  (:require-macros
-    [hiccups.core :as hiccups :refer [html]]))
+    [dommy.core :as dommy]))
 
 (defn as-seq
   "Convert a set of DOM node to a CLJS sequence"
@@ -47,14 +45,6 @@
   [dom attr]
   (dommy/remove-attr! dom attr))
 
-
-(defn create-element
-  [tag id & [nodes]]
-  (let [el (dommy/create-element tag)]
-    (aset el "id" id)
-    (when nodes (dommy/set-html! el (html nodes)))
-    el))
-
 (defn component-value
   [component-id]
   (->
@@ -65,8 +55,13 @@
 (defn clj->json [ds]
   (.stringify js/JSON (clj->js ds)))
 
-(defn change-back-color []
-  ())
+(defn change-color []
+  (->
+    js/document
+    (.getElementById "body")
+    (.-classList)
+    (.toggle "color")))
+
 
 (defn set-item!
   "Set `key` in browser's localStorage to `val`."
@@ -82,3 +77,11 @@
   "Remove the browser's localStorage value for the given `key`"
   [key]
   (.removeItem (.-localStorage js/window) key))
+
+(defn clear-field!
+  [component-id]
+  (->
+    js/document
+    (.getElementById component-id)
+    (.-value)
+    (set! "")))
